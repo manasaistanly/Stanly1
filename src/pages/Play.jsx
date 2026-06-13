@@ -14,6 +14,9 @@ function Player() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+      if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) {
+        e.preventDefault();
+      }
       switch(e.code) {
         case 'KeyW': case 'ArrowUp': setMovement(m => ({ ...m, forward: true })); break;
         case 'KeyS': case 'ArrowDown': setMovement(m => ({ ...m, backward: true })); break;
@@ -118,7 +121,7 @@ export default function Play() {
 
   return (
     <PageTransition>
-      <div className="relative w-full h-screen bg-[#0a0a0a] overflow-hidden z-[100]">
+      <div className="fixed inset-0 w-full h-full bg-[#0a0a0a] overflow-hidden z-[100]">
         
         {/* Three.js Canvas */}
         <Canvas camera={{ position: [0, 1.7, 0], fov: 75 }}>
