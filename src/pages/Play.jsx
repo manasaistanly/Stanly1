@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { PointerLockControls, Text, Image, MeshReflectorMaterial, Stars } from '@react-three/drei';
+import { PointerLockControls, Text, Image, MeshReflectorMaterial, Environment } from '@react-three/drei';
 import { PERSONAL, PROJECTS, SERVICES, ACHIEVEMENTS } from '../data/content';
 import PageTransition from '../components/PageTransition';
 import { Link } from 'react-router-dom';
@@ -66,7 +66,7 @@ function Player() {
   useFrame(() => {
     if (store.active) return; // Prevent movement when modal is open
 
-    const speed = 0.2;
+    const speed = 0.25;
     
     // Create movement vectors
     const frontVector = new THREE.Vector3(0, 0, (movement.backward ? 1 : 0) - (movement.forward ? 1 : 0));
@@ -109,34 +109,34 @@ function ExhibitFrame({ position, rotation, data, image, title, subtitle }) {
     <group position={position} rotation={rotation}>
       {/* Interaction Hitbox */}
       <mesh position={[0, 1.5, 0]} userData={{ isExhibit: true, data }}>
-        <boxGeometry args={[7, 5, 0.5]} />
+        <boxGeometry args={[7, 6, 1]} />
         <meshBasicMaterial visible={false} />
       </mesh>
 
-      {/* Frame Mesh */}
-      <mesh position={[0, 1.5, -0.1]}>
+      {/* Modern White Frame Mesh */}
+      <mesh position={[0, 1.5, -0.1]} castShadow receiveShadow>
         <boxGeometry args={[6.2, 3.7, 0.1]} />
-        <meshStandardMaterial color="#111111" metalness={0.8} roughness={0.2} />
+        <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.1} />
       </mesh>
       
-      {image && <Image url={image} scale={[6, 3.5]} position={[0, 1.5, -0.04]} transparent opacity={0.9} />}
+      {image && <Image url={image} scale={[6, 3.5]} position={[0, 1.5, -0.04]} toneMapped={false} />}
       {!image && (
         <mesh position={[0, 1.5, -0.04]}>
           <planeGeometry args={[6, 3.5]} />
-          <meshStandardMaterial color="#0a0a0a" />
+          <meshStandardMaterial color="#f0f0f0" />
         </mesh>
       )}
 
-      {/* Texts */}
-      <Text position={[0, 3.8, 0]} fontSize={0.5} font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf" color="#ffffff" anchorX="center" anchorY="middle">
+      {/* Clean Typography */}
+      <Text position={[0, 4.0, 0]} fontSize={0.5} font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf" color="#111111" anchorX="center" anchorY="middle" fontWeight={700}>
         {title}
       </Text>
-      <Text position={[0, -0.8, 0]} fontSize={0.25} font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf" color="#888888" anchorX="center" anchorY="middle" maxWidth={6} textAlign="center">
+      <Text position={[0, -0.8, 0]} fontSize={0.25} font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyeMZhrib2Bg-4.ttf" color="#666666" anchorX="center" anchorY="middle" maxWidth={6} textAlign="center">
         {subtitle}
       </Text>
 
-      {/* Ambient Glow */}
-      <pointLight position={[0, 1.5, 2]} intensity={0.5} color="#e5553b" distance={10} />
+      {/* Subtle Wall Spotlight */}
+      <spotLight position={[0, 8, 4]} angle={0.4} penumbra={1} intensity={2} color="#ffffff" castShadow target-position={[0, 1.5, 0]} />
     </group>
   );
 }
@@ -145,76 +145,85 @@ function ExhibitFrame({ position, rotation, data, image, title, subtitle }) {
 function Architecture() {
   return (
     <group>
-      {/* Ultra-Realistic Floor */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+      {/* Premium White Polished Floor */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
           blur={[400, 100]}
           resolution={1024}
           mixBlur={1}
-          mixStrength={50}
-          roughness={0.15}
+          mixStrength={15}
+          roughness={0.2}
           depthScale={1.2}
           minDepthThreshold={0.4}
           maxDepthThreshold={1.4}
-          color="#050505"
-          metalness={0.8}
+          color="#f5f5f5"
+          metalness={0.1}
         />
       </mesh>
 
-      {/* Walls */}
-      <mesh position={[0, 5, -50]}>
-        <boxGeometry args={[100, 10, 1]} />
-        <meshStandardMaterial color="#0a0a0a" roughness={0.9} />
+      {/* Clean White Gallery Walls */}
+      <mesh position={[0, 10, -50]} receiveShadow castShadow>
+        <boxGeometry args={[100, 20, 1]} />
+        <meshStandardMaterial color="#ffffff" roughness={1} />
       </mesh>
-      <mesh position={[0, 5, 50]}>
-        <boxGeometry args={[100, 10, 1]} />
-        <meshStandardMaterial color="#0a0a0a" roughness={0.9} />
+      <mesh position={[0, 10, 50]} receiveShadow castShadow>
+        <boxGeometry args={[100, 20, 1]} />
+        <meshStandardMaterial color="#ffffff" roughness={1} />
       </mesh>
-      <mesh position={[-50, 5, 0]}>
-        <boxGeometry args={[1, 10, 100]} />
-        <meshStandardMaterial color="#0a0a0a" roughness={0.9} />
+      <mesh position={[-50, 10, 0]} receiveShadow castShadow>
+        <boxGeometry args={[1, 20, 100]} />
+        <meshStandardMaterial color="#ffffff" roughness={1} />
       </mesh>
-      <mesh position={[50, 5, 0]}>
-        <boxGeometry args={[1, 10, 100]} />
-        <meshStandardMaterial color="#0a0a0a" roughness={0.9} />
+      <mesh position={[50, 10, 0]} receiveShadow castShadow>
+        <boxGeometry args={[1, 20, 100]} />
+        <meshStandardMaterial color="#ffffff" roughness={1} />
+      </mesh>
+
+      {/* Gallery Ceiling */}
+      <mesh position={[0, 20, 0]} receiveShadow>
+        <boxGeometry args={[100, 1, 100]} />
+        <meshStandardMaterial color="#ffffff" roughness={1} />
       </mesh>
 
       {/* Center Monument (About Me) */}
       <group position={[0, 0, 0]}>
-        <mesh position={[0, 1, 0]}>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshStandardMaterial color="#111111" metalness={0.9} roughness={0.1} />
+        {/* White Marble Pedestal */}
+        <mesh position={[0, 1, 0]} castShadow receiveShadow>
+          <boxGeometry args={[3, 2, 3]} />
+          <meshStandardMaterial color="#ffffff" roughness={0.1} metalness={0.1} />
         </mesh>
+        
         {/* Interaction Hitbox */}
         <mesh position={[0, 1, 0]} userData={{ isExhibit: true, data: { type: 'about', title: PERSONAL.name, description: PERSONAL.bioLong } }}>
-          <boxGeometry args={[3, 3, 3]} />
+          <boxGeometry args={[4, 4, 4]} />
           <meshBasicMaterial visible={false} />
         </mesh>
         
-        <Text position={[0, 3, 0]} fontSize={0.8} color="#e5553b" anchorX="center" anchorY="middle">
+        <Text position={[0, 3.5, 0]} fontSize={0.9} color="#111111" anchorX="center" anchorY="middle" fontWeight={800}>
           {PERSONAL.name}
         </Text>
-        <Text position={[0, 2.3, 0]} fontSize={0.3} color="#ffffff" anchorX="center" anchorY="middle">
+        <Text position={[0, 2.7, 0]} fontSize={0.35} color="#e5553b" anchorX="center" anchorY="middle" fontWeight={600}>
           {PERSONAL.roleLine1}
         </Text>
-        <Text position={[0, 1.8, 0]} fontSize={0.2} color="#888888" anchorX="center" anchorY="middle" maxWidth={4} textAlign="center">
+        <Text position={[0, 2.2, 0]} fontSize={0.25} color="#555555" anchorX="center" anchorY="middle" maxWidth={5} textAlign="center" lineHeight={1.5}>
           {PERSONAL.bioShort}
         </Text>
         
-        <pointLight position={[0, 4, 0]} intensity={2} color="#e5553b" distance={15} />
+        {/* Monument Lighting */}
+        <spotLight position={[0, 15, 0]} angle={0.6} penumbra={1} intensity={3} color="#ffffff" castShadow />
       </group>
 
       {/* North Wing: Projects */}
-      <Text position={[0, 6, -15]} fontSize={1} color="#333333" anchorX="center" anchorY="middle">
+      <Text position={[0, 12, -25]} fontSize={1.5} color="#e5553b" anchorX="center" anchorY="middle" fontWeight={800}>
         PROJECTS GALLERY
       </Text>
       {PROJECTS.map((proj, i) => {
-        const radius = 18;
-        const angle = -Math.PI / 2 + (i - (PROJECTS.length-1)/2) * 0.4;
+        const radius = 22;
+        const angle = -Math.PI / 2 + (i - (PROJECTS.length-1)/2) * 0.45;
         const x = Math.cos(angle) * radius;
-        const z = Math.sin(angle) * radius - 15;
-        const rotationY = Math.atan2(x, z + 15) + Math.PI;
+        const z = Math.sin(angle) * radius - 10;
+        const rotationY = Math.atan2(x, z + 10) + Math.PI;
 
         return (
           <ExhibitFrame 
@@ -230,15 +239,15 @@ function Architecture() {
       })}
 
       {/* West Wing: Services */}
-      <Text position={[-25, 6, 0]} rotation={[0, Math.PI/2, 0]} fontSize={1} color="#333333" anchorX="center" anchorY="middle">
+      <Text position={[-35, 12, 0]} rotation={[0, Math.PI/2, 0]} fontSize={1.5} color="#e5553b" anchorX="center" anchorY="middle" fontWeight={800}>
         SERVICES & EXPERTISE
       </Text>
       {SERVICES.map((srv, i) => {
-        const z = (i - (SERVICES.length-1)/2) * 8;
+        const z = (i - (SERVICES.length-1)/2) * 9;
         return (
           <ExhibitFrame 
             key={`srv-${srv.id}`}
-            position={[-25, 0, z]}
+            position={[-35, 0, z]}
             rotation={[0, Math.PI/2, 0]}
             data={{ type: 'service', ...srv }}
             title={srv.title}
@@ -248,15 +257,15 @@ function Architecture() {
       })}
 
       {/* East Wing: Achievements */}
-      <Text position={[25, 6, 0]} rotation={[0, -Math.PI/2, 0]} fontSize={1} color="#333333" anchorX="center" anchorY="middle">
+      <Text position={[35, 12, 0]} rotation={[0, -Math.PI/2, 0]} fontSize={1.5} color="#e5553b" anchorX="center" anchorY="middle" fontWeight={800}>
         ACHIEVEMENTS
       </Text>
       {ACHIEVEMENTS.map((ach, i) => {
-        const z = (i - (ACHIEVEMENTS.length-1)/2) * 6;
+        const z = (i - (ACHIEVEMENTS.length-1)/2) * 7;
         return (
           <ExhibitFrame 
             key={`ach-${ach.index}`}
-            position={[25, 0, z]}
+            position={[35, 0, z]}
             rotation={[0, -Math.PI/2, 0]}
             data={{ type: 'achievement', ...ach }}
             title={ach.title}
@@ -269,44 +278,44 @@ function Architecture() {
   );
 }
 
-// Modals UI Component
+// Light Theme UI Modal
 function ModalOverlay({ active, onClose }) {
   if (!active) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-      <div className="bg-[#111111] border border-[#333333] rounded-2xl max-w-2xl w-full p-8 relative shadow-2xl animate-fade-in-up">
+    <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 animate-fade-in">
+      <div className="bg-white border border-gray-200 rounded-3xl max-w-2xl w-full p-10 relative shadow-2xl animate-fade-in-up">
         
         <button 
           onClick={onClose}
-          className="absolute top-6 right-6 text-[#888888] hover:text-white transition-colors text-2xl"
+          className="absolute top-6 right-6 text-gray-400 hover:text-gray-900 transition-colors text-3xl font-light"
         >
           &times;
         </button>
 
         {active.type === 'project' && (
           <>
-            <h2 className="font-display font-bold text-3xl text-white mb-2">{active.title}</h2>
-            <div className="text-[#e5553b] text-sm font-mono mb-6">{active.year}</div>
+            <h2 className="font-display font-bold text-4xl text-gray-900 mb-2">{active.title}</h2>
+            <div className="text-[#e5553b] font-medium text-sm mb-6 uppercase tracking-wider">{active.year}</div>
             
             {active.image && (
-              <img src={active.image} alt={active.title} className="w-full h-64 object-cover rounded-xl mb-6 border border-[#222222]" />
+              <img src={active.image} alt={active.title} className="w-full h-72 object-cover rounded-2xl mb-8 shadow-md" />
             )}
             
-            <p className="font-body text-[#cccccc] text-lg leading-relaxed mb-8">
+            <p className="font-body text-gray-600 text-lg leading-relaxed mb-8">
               {active.longDescription || active.description}
             </p>
 
             <div className="flex flex-wrap gap-2 mb-8">
               {active.tags?.map(tag => (
-                <span key={tag} className="bg-[#222222] text-white px-3 py-1 rounded-full text-sm font-medium">
+                <span key={tag} className="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-sm font-medium border border-gray-200">
                   {tag}
                 </span>
               ))}
             </div>
 
             {active.link && (
-              <a href={active.link} target="_blank" rel="noreferrer" className="inline-block bg-[#e5553b] text-white font-medium px-6 py-3 rounded-full hover:bg-[#ff6b4f] transition-colors">
+              <a href={active.link} target="_blank" rel="noreferrer" className="inline-block bg-[#e5553b] text-white font-medium px-8 py-3.5 rounded-full hover:bg-[#ff6b4f] transition-colors shadow-lg shadow-[#e5553b]/30">
                 View Project Source
               </a>
             )}
@@ -315,12 +324,12 @@ function ModalOverlay({ active, onClose }) {
 
         {active.type === 'service' && (
           <>
-            <div className="text-[#e5553b] font-display font-black text-5xl mb-4">{active.index}</div>
-            <h2 className="font-display font-bold text-3xl text-white mb-6">{active.title}</h2>
-            <p className="font-body text-[#cccccc] text-lg mb-8">{active.description}</p>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="text-[#e5553b] font-display font-black text-6xl mb-4 opacity-20 absolute top-8 right-10">{active.index}</div>
+            <h2 className="font-display font-bold text-4xl text-gray-900 mb-4 pr-20">{active.title}</h2>
+            <p className="font-body text-gray-600 text-xl mb-10">{active.description}</p>
+            <div className="grid grid-cols-2 gap-y-4 gap-x-6">
               {active.items?.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-white">
+                <div key={idx} className="flex items-center gap-3 text-gray-700 font-medium">
                   <span className="text-[#e5553b]">▹</span> {item}
                 </div>
               ))}
@@ -330,9 +339,9 @@ function ModalOverlay({ active, onClose }) {
 
         {active.type === 'about' && (
           <>
-            <h2 className="font-display font-bold text-3xl text-white mb-2">{active.title}</h2>
-            <div className="text-[#e5553b] font-medium mb-6">About the Architect</div>
-            <p className="font-body text-[#cccccc] text-lg leading-relaxed">
+            <h2 className="font-display font-bold text-4xl text-gray-900 mb-2">{active.title}</h2>
+            <div className="text-[#e5553b] font-bold tracking-wide uppercase text-sm mb-8">About the Architect</div>
+            <p className="font-body text-gray-700 text-lg leading-relaxed space-y-4">
               {active.description}
             </p>
           </>
@@ -340,9 +349,11 @@ function ModalOverlay({ active, onClose }) {
 
         {active.type === 'achievement' && (
           <>
-            <h2 className="font-display font-bold text-3xl text-white mb-4">{active.title}</h2>
-            <div className="text-[#e5553b] text-lg mb-6">Platform: {active.platform || active.subtitle}</div>
-            <p className="font-body text-[#888888]">This achievement represents a milestone in continuous learning and professional execution.</p>
+            <h2 className="font-display font-bold text-3xl text-gray-900 mb-4 leading-tight">{active.title}</h2>
+            <div className="inline-block bg-[#e5553b]/10 text-[#e5553b] font-semibold px-4 py-1.5 rounded-full text-sm mb-8">
+              Platform: {active.platform || active.subtitle}
+            </div>
+            <p className="font-body text-gray-500 text-lg">This achievement represents a milestone in continuous learning and professional execution.</p>
           </>
         )}
       </div>
@@ -372,13 +383,15 @@ export default function Play() {
 
   return (
     <PageTransition>
-      <div className="fixed inset-0 w-full h-full bg-[#050505] overflow-hidden z-[100]">
+      <div className="fixed inset-0 w-full h-full bg-[#f8f9fa] overflow-hidden z-[100]">
         
-        {/* Three.js Canvas */}
-        <Canvas camera={{ position: [0, 1.7, 10], fov: 75 }}>
-          <color attach="background" args={['#050505']} />
-          <ambientLight intensity={0.1} />
-          <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        {/* Three.js Canvas - Light Theme */}
+        <Canvas camera={{ position: [0, 1.7, 10], fov: 75 }} shadows>
+          <color attach="background" args={['#ffffff']} />
+          
+          {/* Bright Gallery Lighting */}
+          <ambientLight intensity={1.5} />
+          <directionalLight position={[20, 30, 10]} intensity={1.5} castShadow shadow-mapSize={[2048, 2048]} />
           
           <Player />
           <Architecture />
@@ -387,41 +400,46 @@ export default function Play() {
         {/* UI Overlay: Crosshair */}
         {locked && !active && (
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
-            <div className={`w-2 h-2 rounded-full transition-all duration-300 ${hovered ? 'bg-[#e5553b] scale-150' : 'bg-white/50'}`} />
+            <div className={`w-2 h-2 rounded-full transition-all duration-300 ${hovered ? 'bg-[#e5553b] scale-150' : 'bg-black/40'}`} />
           </div>
         )}
 
         {/* UI Overlay: Hover Interaction Prompt */}
         {locked && !active && hovered && (
           <div className="absolute bottom-24 left-1/2 -translate-x-1/2 text-center pointer-events-none z-10 animate-fade-in-up">
-            <div className="text-white font-display text-2xl font-bold mb-1 drop-shadow-lg">{hovered.title || hovered.name}</div>
-            <div className="text-[#e5553b] font-mono text-sm tracking-widest uppercase">[ Click or E to Inspect ]</div>
+            <div className="bg-white/90 backdrop-blur-md px-8 py-4 rounded-2xl shadow-xl border border-gray-100">
+              <div className="text-gray-900 font-display text-2xl font-bold mb-1">{hovered.title || hovered.name}</div>
+              <div className="text-[#e5553b] font-mono text-sm tracking-widest uppercase font-bold">[ Click or E to Inspect ]</div>
+            </div>
           </div>
         )}
 
-        {/* Start / Intro Overlay */}
+        {/* Start / Intro Overlay - Light Theme */}
         {!locked && !active && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none">
-            <div className="text-center max-w-2xl px-6">
-              <h1 className="font-display font-black text-[clamp(40px,6vw,80px)] text-white tracking-tight mb-4 drop-shadow-2xl">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-white/80 backdrop-blur-lg pointer-events-none">
+            <div className="text-center max-w-2xl px-6 pointer-events-auto">
+              <h1 className="font-display font-black text-[clamp(40px,6vw,80px)] text-gray-900 tracking-tight mb-6">
                 The Metaverse Gallery
               </h1>
-              <p className="font-body text-[#aaaaaa] text-[18px] mb-8 leading-relaxed">
-                Step into a fully interactive 3D exhibition of my work, skills, and achievements.<br/>
-                Navigate using <strong className="text-white">WASD</strong>. Look around with your <strong className="text-white">Mouse</strong>.<br/>
+              <p className="font-body text-gray-600 text-[20px] mb-10 leading-relaxed font-light">
+                Step into a modern, fully interactive 3D exhibition of my work, skills, and achievements.<br/><br/>
+                Navigate using <strong className="text-gray-900 font-bold">WASD</strong>. Look around with your <strong className="text-gray-900 font-bold">Mouse</strong>.<br/>
                 Click on any exhibit to view its deep details.
               </p>
-              <div className="inline-block bg-[#e5553b] text-white font-medium px-8 py-4 rounded-full hover:bg-[#ff6b4f] transition-all duration-300 shadow-[0_0_20px_rgba(229,85,59,0.4)]">
-                Click Anywhere to Enter
-              </div>
+              <button 
+                onClick={() => document.body.requestPointerLock()} 
+                className="inline-block bg-[#e5553b] text-white font-bold tracking-wide uppercase text-sm px-10 py-5 rounded-full hover:bg-[#ff6b4f] transition-all duration-300 shadow-xl shadow-[#e5553b]/30 hover:shadow-2xl hover:-translate-y-1"
+              >
+                Enter Gallery
+              </button>
             </div>
           </div>
         )}
 
         {/* Exit Museum Button */}
         <div className="absolute top-8 left-8 z-30">
-          <Link to="/" className="font-display font-medium text-white text-[16px] hover:text-[#e5553b] transition-colors bg-[#111111]/80 px-6 py-3 rounded-full backdrop-blur-md border border-[#333333]">
-            ← Exit
+          <Link to="/" className="flex items-center gap-2 font-display font-semibold text-gray-900 text-[15px] hover:text-[#e5553b] transition-colors bg-white/90 px-6 py-3 rounded-full shadow-lg border border-gray-100 backdrop-blur-md hover:shadow-xl hover:-translate-y-0.5">
+            ← Exit to Portfolio
           </Link>
         </div>
 
@@ -430,13 +448,12 @@ export default function Play() {
           active={active} 
           onClose={() => {
             setActive(null);
-            // Optionally auto-lock again, but let's let the user click the background to re-enter
           }} 
         />
 
         {/* Esc instruction when locked */}
         {locked && !active && (
-           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#666666] font-mono text-[12px] pointer-events-none tracking-widest uppercase">
+           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-400 font-mono text-[12px] font-bold pointer-events-none tracking-widest uppercase bg-white/50 px-4 py-2 rounded-full backdrop-blur-sm">
              Press ESC to pause
            </div>
         )}
