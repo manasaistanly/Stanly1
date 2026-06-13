@@ -11,7 +11,8 @@ const store = {
   hovered: null,
   active: null,
   setHovered: () => {},
-  setActive: () => {}
+  setActive: () => {},
+  setLocked: () => {}
 };
 
 // First-Person Player Controller
@@ -99,7 +100,7 @@ function Player() {
     }
   });
   
-  return <PointerLockControls onLock={() => document.body.dataset.locked = 'true'} onUnlock={() => document.body.dataset.locked = 'false'} />;
+  return <PointerLockControls onLock={() => store.setLocked(true)} onUnlock={() => store.setLocked(false)} />;
 }
 
 // Reusable Exhibit Frame Component
@@ -358,6 +359,7 @@ export default function Play() {
   useEffect(() => {
     store.setHovered = setHovered;
     store.setActive = setActive;
+    store.setLocked = setLocked;
   }, []);
 
   useEffect(() => {
@@ -399,7 +401,7 @@ export default function Play() {
 
         {/* Start / Intro Overlay */}
         {!locked && !active && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm cursor-pointer">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm pointer-events-none">
             <div className="text-center max-w-2xl px-6">
               <h1 className="font-display font-black text-[clamp(40px,6vw,80px)] text-white tracking-tight mb-4 drop-shadow-2xl">
                 The Metaverse Gallery
