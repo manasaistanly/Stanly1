@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
 import Contact from './pages/Contact';
+import Play from './pages/Play';
 import CustomCursor from './components/CustomCursor';
 import FilmGrain from './components/FilmGrain';
 import SmoothScroll from './components/SmoothScroll';
@@ -41,6 +42,7 @@ export default function App() {
               <Route path="/about" element={<About shouldAnimate={shouldAnimate} />} />
               <Route path="/projects" element={<Projects shouldAnimate={shouldAnimate} />} />
               <Route path="/contact" element={<Contact shouldAnimate={shouldAnimate} />} />
+              <Route path="/play" element={<Play />} />
             </Routes>
           </AnimatePresence>
         </main>

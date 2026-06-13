@@ -62,6 +62,10 @@ export default function Home({ shouldAnimate }) {
               <a href={PERSONAL.github} className="group flex items-center gap-3 text-[16px] font-body font-medium text-white transition-all duration-300 hover:-translate-y-[2px] hover:text-[#cccccc]" target="_blank" rel="noreferrer">
                 <FiGithub className="text-xl transition-transform duration-300 group-hover:scale-110" /> GitHub
               </a>
+
+              <Link to="/play" className="group flex items-center gap-3 text-[16px] font-body font-medium text-[#e5553b] transition-all duration-300 hover:-translate-y-[2px] hover:text-white mt-2">
+                <span className="text-xl transition-transform duration-300 group-hover:scale-110">🕹️</span> Play Game
+              </Link>
             </div>
 
             <div className="text-right pointer-events-auto flex flex-col items-end">
