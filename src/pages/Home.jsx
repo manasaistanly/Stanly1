@@ -26,7 +26,10 @@ export default function Home({ shouldAnimate }) {
       <section className="h-screen w-full relative overflow-hidden bg-bg">
         {/* Layer z-1: Background Photo */}
         <div className="absolute inset-0 z-[1] grayscale">
-          <ParallaxImage 
+          <motion.img 
+            initial={{ scale: 1.1, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
             src={PERSONAL.photoUrl} 
             alt="Portrait" 
             className="w-full h-full object-cover object-top" 
