@@ -178,11 +178,12 @@ export default function Play() {
             </Link>
           </div>
 
-          <div className="text-center pb-8">
-            <h1 className="font-display font-black text-[clamp(40px,8vw,120px)] text-white/10 tracking-tighter uppercase leading-none select-none">
+          {/* Background Watermark Text */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-[-1]">
+            <h1 className="font-display font-black text-[clamp(40px,10vw,150px)] text-white/[0.03] tracking-tighter uppercase leading-none select-none">
               Playground
             </h1>
-            <p className="font-body text-[#888888] text-[18px] mt-4 select-none">
+            <p className="font-body text-[#888888] text-[18px] md:text-[20px] mt-2 select-none">
               Drag, throw, and bounce the elements.
             </p>
           </div>
