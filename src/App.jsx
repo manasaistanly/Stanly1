@@ -9,6 +9,7 @@ import Projects from './pages/Projects';
 import Contact from './pages/Contact';
 import CustomCursor from './components/CustomCursor';
 import FilmGrain from './components/FilmGrain';
+import SmoothScroll from './components/SmoothScroll';
 
 export default function App() {
   const location = useLocation();
@@ -28,21 +29,23 @@ export default function App() {
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <CustomCursor />
-      <FilmGrain />
-      <Navbar shouldAnimate={shouldAnimate} />
-      <main className="flex-grow">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home shouldAnimate={shouldAnimate} />} />
-            <Route path="/about" element={<About shouldAnimate={shouldAnimate} />} />
-            <Route path="/projects" element={<Projects shouldAnimate={shouldAnimate} />} />
-            <Route path="/contact" element={<Contact shouldAnimate={shouldAnimate} />} />
-          </Routes>
-        </AnimatePresence>
-      </main>
-      <Footer />
-    </div>
+    <SmoothScroll>
+      <div className="flex flex-col min-h-screen">
+        <CustomCursor />
+        <FilmGrain />
+        <Navbar shouldAnimate={shouldAnimate} />
+        <main className="flex-grow">
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home shouldAnimate={shouldAnimate} />} />
+              <Route path="/about" element={<About shouldAnimate={shouldAnimate} />} />
+              <Route path="/projects" element={<Projects shouldAnimate={shouldAnimate} />} />
+              <Route path="/contact" element={<Contact shouldAnimate={shouldAnimate} />} />
+            </Routes>
+          </AnimatePresence>
+        </main>
+        <Footer />
+      </div>
+    </SmoothScroll>
   );
 }

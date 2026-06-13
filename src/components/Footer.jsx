@@ -1,6 +1,6 @@
 import MarqueeText from './MarqueeText';
 import { PERSONAL } from '../data/content';
-import { FiLinkedin, FiTwitter, FiGithub } from 'react-icons/fi';
+import { FiLinkedin, FiGithub } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
@@ -71,9 +71,6 @@ export default function Footer() {
             <div className="flex gap-6 md:gap-8 text-white font-medium text-[15px] md:text-[18px]">
               <a href={PERSONAL.linkedin} className="flex items-center gap-2 hover:text-[#e5553b] transition-colors">
                 <FiLinkedin className="text-xl md:text-2xl"/> Linkedin
-              </a>
-              <a href={PERSONAL.twitter} className="flex items-center gap-2 hover:text-[#e5553b] transition-colors">
-                <FiTwitter className="text-xl md:text-2xl"/> Twitter
               </a>
               <a href={PERSONAL.github} className="flex items-center gap-2 hover:text-[#e5553b] transition-colors" target="_blank" rel="noreferrer">
                 <FiGithub className="text-xl md:text-2xl"/> GitHub

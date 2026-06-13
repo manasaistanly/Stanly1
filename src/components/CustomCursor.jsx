@@ -58,10 +58,10 @@ export default function CustomCursor() {
         mixBlendMode: 'difference'
       }}
       animate={{
-        scale: isHovering ? 2.5 : 1,
-        opacity: 1
+        scale: isHovering ? 4 : 1,
+        opacity: isHovering ? 0.8 : 1
       }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-0 left-0 w-5 h-5 bg-white rounded-full pointer-events-none z-[9999]"
     />
   );

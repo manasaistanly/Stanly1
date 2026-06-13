@@ -12,7 +12,7 @@ export const PERSONAL = {
   phone: "+91 8220470829",
   location: "Hosur, Tamil Nadu, India",
   linkedin: "https://www.linkedin.com/in/manasai-stanly-j-028202252/",
-  twitter: "#",
+
   photoUrl: "/profile.jpg"
 };
 

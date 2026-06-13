@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FiLinkedin, FiTwitter, FiGithub } from 'react-icons/fi';
+import { FiLinkedin, FiGithub } from 'react-icons/fi';
 import { PERSONAL } from '../data/content';
 import PageTransition from '../components/PageTransition';
 import MagneticButton from '../components/MagneticButton';
@@ -59,7 +59,7 @@ export default function Contact({ shouldAnimate }) {
             
             <div className="flex gap-6 mt-4 text-2xl text-white">
               <a href={PERSONAL.linkedin} target="_blank" rel="noreferrer" className="hover:text-[#e5553b] transition-colors"><FiLinkedin /></a>
-              <a href={PERSONAL.twitter} target="_blank" rel="noreferrer" className="hover:text-[#e5553b] transition-colors"><FiTwitter /></a>
+
               <a href={PERSONAL.github} target="_blank" rel="noreferrer" className="hover:text-[#e5553b] transition-colors"><FiGithub /></a>
             </div>
           </div>

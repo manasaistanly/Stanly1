@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa';
 import Marquee from './Marquee';
 
 export default function Contact() {
@@ -80,14 +80,7 @@ export default function Contact() {
               >
                 <FaLinkedin />
               </a>
-              <a
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted text-2xl hover:text-accent transition-colors duration-200"
-              >
-                <FaTwitter />
-              </a>
+
             </div>
 
             <div className="font-body font-normal text-sm text-muted mt-8">

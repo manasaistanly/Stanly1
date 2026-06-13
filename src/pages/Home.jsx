@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiLinkedin, FiTwitter, FiGithub, FiPlus, FiMinus } from 'react-icons/fi';
+import { FiLinkedin, FiGithub, FiPlus, FiMinus } from 'react-icons/fi';
 import MarqueeText from '../components/MarqueeText';
 import TextReveal from '../components/TextReveal';
 import ParallaxImage from '../components/ParallaxImage';
@@ -54,9 +54,7 @@ export default function Home({ shouldAnimate }) {
               <a href={PERSONAL.linkedin} className="group flex items-center gap-3 text-[16px] font-body font-medium text-white transition-all duration-300 hover:-translate-y-[2px] hover:text-[#cccccc]">
                 <FiLinkedin className="text-xl transition-transform duration-300 group-hover:scale-110" /> Linkedin
               </a>
-              <a href={PERSONAL.twitter} className="group flex items-center gap-3 text-[16px] font-body font-medium text-white transition-all duration-300 hover:-translate-y-[2px] hover:text-[#cccccc]">
-                <FiTwitter className="text-xl transition-transform duration-300 group-hover:scale-110" /> Twitter
-              </a>
+
               <a href={PERSONAL.github} className="group flex items-center gap-3 text-[16px] font-body font-medium text-white transition-all duration-300 hover:-translate-y-[2px] hover:text-[#cccccc]" target="_blank" rel="noreferrer">
                 <FiGithub className="text-xl transition-transform duration-300 group-hover:scale-110" /> GitHub
               </a>
