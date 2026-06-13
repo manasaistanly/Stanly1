@@ -1,7 +1,11 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import Lenis from 'lenis';
+import { useLocation } from 'react-router-dom';
 
 export default function SmoothScroll({ children }) {
+  const location = useLocation();
+  const lenisRef = useRef(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
@@ -12,6 +16,7 @@ export default function SmoothScroll({ children }) {
       smoothTouch: false,
       touchMultiplier: 2,
     });
+    lenisRef.current = lenis;
 
     let rafId;
 
@@ -27,6 +32,12 @@ export default function SmoothScroll({ children }) {
       lenis.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    }
+  }, [location.pathname]);
 
   return children;
 }

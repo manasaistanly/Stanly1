@@ -298,7 +298,7 @@ export default function Play() {
 
   return (
     <PageTransition>
-      <div className="fixed inset-0 bg-[#111111] overflow-hidden">
+      <div className="relative w-full h-screen bg-[#111111] overflow-hidden z-[100]">
         
         {/* Canvas Background */}
         <canvas ref={canvasRef} className="absolute inset-0 z-0 block" />

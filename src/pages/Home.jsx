@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FiLinkedin, FiGithub, FiPlus, FiMinus } from 'react-icons/fi';
+import { FiLinkedin, FiGithub, FiPlus, FiMinus, FiPlayCircle } from 'react-icons/fi';
 import MarqueeText from '../components/MarqueeText';
 import TextReveal from '../components/TextReveal';
 import ParallaxImage from '../components/ParallaxImage';
@@ -64,7 +64,7 @@ export default function Home({ shouldAnimate }) {
               </a>
 
               <Link to="/play" className="group flex items-center gap-3 text-[16px] font-body font-medium text-[#e5553b] transition-all duration-300 hover:-translate-y-[2px] hover:text-white mt-2">
-                <span className="text-xl transition-transform duration-300 group-hover:scale-110">🕹️</span> Play Game
+                <FiPlayCircle className="text-xl transition-transform duration-300 group-hover:scale-110" /> Play Game
               </Link>
             </div>
 
