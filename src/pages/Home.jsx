@@ -7,6 +7,7 @@ import TextReveal from '../components/TextReveal';
 import ParallaxImage from '../components/ParallaxImage';
 import PageTransition from '../components/PageTransition';
 import MagneticButton from '../components/MagneticButton';
+import TiltCard from '../components/TiltCard';
 import { PERSONAL, SERVICES, PROJECTS, TESTIMONIALS } from '../data/content';
 
 export default function Home({ shouldAnimate }) {
@@ -224,46 +225,50 @@ export default function Home({ shouldAnimate }) {
               >
                 
                 {/* Left: Image Container */}
-                <div className="relative overflow-hidden rounded-[24px] bg-[#222222] h-[350px] md:h-[500px] lg:h-[600px] cursor-pointer shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-                  <ParallaxImage 
-                    src={proj.image} 
-                    alt={proj.title} 
-                    className="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105" 
-                  />
-                  
-                  {/* Dark overlay for when cards stack behind */}
-                  <div className="absolute inset-0 bg-black/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500"></div>
+                <TiltCard className="md:col-span-[1.3] lg:col-span-[1.5]">
+                  <div className="relative overflow-hidden rounded-[24px] bg-[#222222] h-[350px] md:h-[500px] lg:h-[600px] cursor-pointer shadow-[0_-10px_40px_rgba(0,0,0,0.5)] w-full">
+                    <ParallaxImage 
+                      src={proj.image} 
+                      alt={proj.title} 
+                      className="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105" 
+                    />
+                    
+                    {/* Dark overlay for when cards stack behind */}
+                    <div className="absolute inset-0 bg-black/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500"></div>
 
-                  {/* Hover Button */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-28 h-28 bg-[#e5553b] rounded-full flex items-center justify-center text-white font-medium text-lg scale-50 group-hover:scale-100 transition-transform duration-[600ms] ease-out shadow-[0_10px_40px_rgba(229,85,59,0.5)]">
-                      View
+                    {/* Hover Button */}
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-28 h-28 bg-[#e5553b] rounded-full flex items-center justify-center text-white font-medium text-lg scale-50 group-hover:scale-100 transition-transform duration-[600ms] ease-out shadow-[0_10px_40px_rgba(229,85,59,0.5)]">
+                        View
+                      </div>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
 
                 {/* Right: Info Card */}
-                <div className="bg-[#161616] rounded-[24px] border border-[#222222] p-6 md:p-12 flex flex-col justify-between transition-colors duration-500 group-hover:border-[#333333] shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
-                  <div>
-                    <div className="font-mono text-[#888888] text-sm tracking-wider mb-8">( {proj.year} )</div>
-                    <h3 className="font-display font-semibold text-[32px] md:text-[56px] leading-[1.05] tracking-tight text-white mb-6">
-                      {proj.title}
-                    </h3>
-                    <p className="font-body text-[#888888] text-[18px] leading-relaxed max-w-lg">
-                      {proj.description}
-                    </p>
-                  </div>
-                  
-                  <div className="flex justify-between items-end mt-12">
-                    <div className="flex flex-wrap gap-2">
-                      <span className="text-[#888888] font-body text-[15px]">{proj.tags[0]}</span>
+                <TiltCard className="md:col-span-1">
+                  <div className="bg-[#161616] rounded-[24px] border border-[#222222] p-6 md:p-12 flex flex-col justify-between transition-colors duration-500 group-hover:border-[#333333] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] h-full">
+                    <div>
+                      <div className="font-mono text-[#888888] text-sm tracking-wider mb-8">( {proj.year} )</div>
+                      <h3 className="font-display font-semibold text-[32px] md:text-[56px] leading-[1.05] tracking-tight text-white mb-6">
+                        {proj.title}
+                      </h3>
+                      <p className="font-body text-[#888888] text-[18px] leading-relaxed max-w-lg">
+                        {proj.description}
+                      </p>
                     </div>
                     
-                    <div className="bg-white text-black rounded-full px-6 py-2.5 font-medium text-[14px] flex items-center gap-2 hover:bg-[#e6e6e6] transition-colors shadow-sm">
-                      Made in Code
+                    <div className="flex justify-between items-end mt-12">
+                      <div className="flex flex-wrap gap-2">
+                        <span className="text-[#888888] font-body text-[15px]">{proj.tags[0]}</span>
+                      </div>
+                      
+                      <div className="bg-white text-black rounded-full px-6 py-2.5 font-medium text-[14px] flex items-center gap-2 hover:bg-[#e6e6e6] transition-colors shadow-sm">
+                        Made in Code
+                      </div>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
 
               </Link>
             ))}

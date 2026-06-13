@@ -3,7 +3,8 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 
 export default function ParallaxImage({ src, alt, className = '' }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
+  // Using an amount threshold instead of aggressive margins ensures it fires reliably.
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
   
   const { scrollYProgress } = useScroll({
     target: ref,

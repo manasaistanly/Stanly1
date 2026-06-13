@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { PROJECTS } from '../data/content';
 import TextReveal from '../components/TextReveal';
 import ParallaxImage from '../components/ParallaxImage';
+import TiltCard from '../components/TiltCard';
 import PageTransition from '../components/PageTransition';
 
 export default function Projects({ shouldAnimate }) {
@@ -32,60 +33,59 @@ export default function Projects({ shouldAnimate }) {
               transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
               className="flex flex-col group"
             >
-              {/* Image Banner */}
-              <div className="w-full h-[300px] md:h-[750px] overflow-hidden rounded-[32px] bg-[#1a1a1a] relative border border-[#222222] group-hover:border-[#e5553b] transition-colors duration-500 shadow-2xl">
-                <ParallaxImage 
-                  src={proj.image} 
-                  alt={proj.title} 
-                  className="absolute inset-0 w-full h-full transition-transform duration-[2s] group-hover:scale-[1.03] opacity-80 group-hover:opacity-100" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent opacity-50 pointer-events-none"></div>
-              </div>
-
-              {/* Content Split */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mt-12 md:mt-16">
-                
-                {/* Meta Side (Col 1-4) */}
-                <div className="lg:col-span-4 flex flex-col gap-8">
-                  <div>
-                    <h2 className="font-display font-bold text-[32px] md:text-[50px] lg:text-[60px] text-white leading-none tracking-tight mb-4 group-hover:text-[#e5553b] transition-colors">
-                      {proj.title}
-                    </h2>
-                    <div className="font-mono text-[#e5553b] text-sm tracking-widest uppercase">
-                      [{proj.year}]
+              <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-stretch">
+                {/* Left: Image Container */}
+                <TiltCard>
+                  <div className="relative overflow-hidden rounded-[24px] bg-[#222222] h-[400px] md:h-[600px] lg:h-[700px] cursor-pointer shadow-[0_-10px_40px_rgba(0,0,0,0.5)] w-full">
+                    <ParallaxImage 
+                      src={proj.image} 
+                      alt={proj.title} 
+                      className="absolute inset-0 w-full h-full transition-transform duration-[800ms] ease-[0.25,1,0.5,1] group-hover:scale-105" 
+                    />
+                    <div className="absolute inset-0 bg-black/20 pointer-events-none group-hover:bg-transparent transition-colors duration-500"></div>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-28 h-28 bg-[#e5553b] rounded-full flex items-center justify-center text-white font-medium text-lg scale-50 group-hover:scale-100 transition-transform duration-[600ms] ease-out shadow-[0_10px_40px_rgba(229,85,59,0.5)]">
+                        View
+                      </div>
                     </div>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-3">
-                    {proj.tags.map(tag => (
-                      <span key={tag} className="border border-[#333333] bg-[#1a1a1a] rounded-full px-5 py-2 font-body font-medium text-[13px] text-[#cccccc]">
-                        {tag}
-                      </span>
-                    ))}
+                </TiltCard>
+
+                {/* Right: Info Card */}
+                <TiltCard>
+                  <div className="bg-[#161616] rounded-[24px] border border-[#222222] p-8 md:p-12 flex flex-col justify-between transition-colors duration-500 group-hover:border-[#333333] shadow-[0_-10px_40px_rgba(0,0,0,0.5)] h-full">
+                    <div>
+                      <div className="font-mono text-[#888888] text-sm tracking-wider mb-8">( {proj.year} )</div>
+                      <h3 className="font-display font-semibold text-[40px] md:text-[64px] leading-[1.05] tracking-tight text-white mb-6">
+                        {proj.title}
+                      </h3>
+                      <p className="font-body text-[#888888] text-[20px] leading-relaxed max-w-lg mb-12">
+                        {proj.longDescription}
+                      </p>
+                    </div>
+                    
+                    <div className="flex flex-col gap-8">
+                      <div className="flex flex-wrap gap-3">
+                        {proj.tags.map((tag, i) => (
+                          <span key={i} className="text-[#888888] font-body text-[15px] border border-[#333333] rounded-full px-4 py-2">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {proj.link && (
+                        <a 
+                          href={proj.link} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="group/btn inline-flex items-center justify-center gap-3 border border-[#333333] hover:border-[#e5553b] bg-transparent text-white rounded-full px-8 py-4 font-medium text-[16px] transition-all mt-4 w-max hover:shadow-[0_0_20px_rgba(229,85,59,0.2)]"
+                        >
+                          View Live Project <span className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform">↗</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-
-                {/* Description Side (Col 5-12) */}
-                <div className="lg:col-span-8 flex flex-col gap-8 lg:pl-12">
-                  <h3 className="font-display text-[26px] md:text-[36px] font-medium text-white leading-[1.2] tracking-tight">
-                    {proj.description}
-                  </h3>
-                  <p className="font-body text-[#888888] text-[18px] md:text-[22px] leading-[1.8] max-w-4xl">
-                    {proj.longDescription}
-                  </p>
-
-                  {proj.link && (
-                    <a 
-                      href={proj.link} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="group/btn inline-flex items-center justify-center gap-3 border border-[#333333] hover:border-[#e5553b] bg-transparent text-white rounded-full px-8 py-4 font-medium text-[16px] transition-all mt-4 w-max hover:shadow-[0_0_20px_rgba(229,85,59,0.2)]"
-                    >
-                      View Live Project <span className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform">↗</span>
-                    </a>
-                  )}
-                </div>
-
+                </TiltCard>
               </div>
             </motion.div>
           ))}

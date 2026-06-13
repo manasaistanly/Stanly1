@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PERSONAL } from '../data/content';
 import MagneticButton from './MagneticButton';
+import ScrambleText from './ScrambleText';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -27,8 +28,12 @@ export default function Navbar() {
 
           {/* CENTER: Links */}
           <div className="hidden md:flex items-center justify-center gap-10">
-            <Link to="/projects" className="font-body font-medium text-[15px] text-[#aaaaaa] hover:text-white transition-colors tracking-wide">Projects</Link>
-            <Link to="/about" className="font-body font-medium text-[15px] text-[#aaaaaa] hover:text-white transition-colors tracking-wide">About</Link>
+            <Link to="/projects" className="font-body font-medium text-[15px] text-[#aaaaaa] hover:text-white transition-colors tracking-wide">
+              <ScrambleText text="Projects" />
+            </Link>
+            <Link to="/about" className="font-body font-medium text-[15px] text-[#aaaaaa] hover:text-white transition-colors tracking-wide">
+              <ScrambleText text="About" />
+            </Link>
           </div>
 
           {/* RIGHT: CTA Button (Hidden on Mobile) */}
